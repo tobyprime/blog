@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://urealtoby.github.io/2022/06/30/Coding-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F/</loc>
+    
+    <lastmod>2022-07-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://urealtoby.github.io/link/index.html</loc>
     
     <lastmod>2022-07-09</lastmod>
@@ -23,15 +32,6 @@
     <loc>https://urealtoby.github.io/categories/index.html</loc>
     
     <lastmod>2022-07-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://urealtoby.github.io/2022/06/30/Coding-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F/</loc>
-    
-    <lastmod>2022-07-08</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -266,6 +266,13 @@
   </url>
   
 
+  
+  <url>
+    <loc>https://urealtoby.github.io/categories/code/</loc>
+    <lastmod>2022-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
   <url>
     <loc>https://urealtoby.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>

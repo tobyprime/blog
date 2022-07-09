@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://urealtoby.github.io/categories/index.html</loc>
+    
+    <lastmod>2022-07-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://urealtoby.github.io/link/index.html</loc>
     
     <lastmod>2022-07-09</lastmod>
@@ -12,15 +21,6 @@
   
   <url>
     <loc>https://urealtoby.github.io/tags/index.html</loc>
-    
-    <lastmod>2022-07-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://urealtoby.github.io/categories/index.html</loc>
     
     <lastmod>2022-07-09</lastmod>
     

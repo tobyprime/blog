@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://urealtoby.github.io/2022/07/11/Paper-Reading-DALL-E-2/</loc>
+    
+    <lastmod>2022-07-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://urealtoby.github.io/2022/06/30/Coding-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F/</loc>
     
     <lastmod>2022-07-09</lastmod>
@@ -175,7 +184,7 @@
 
   <url>
     <loc>https://urealtoby.github.io/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -183,84 +192,91 @@
   
   <url>
     <loc>https://urealtoby.github.io/tags/Coding/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/DeepLearning/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/Note/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/Paper/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/CV/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/Multimodal/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/KeyPoint/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://urealtoby.github.io/tags/ImageGeneration/</loc>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/Transformer/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/Face-Recognition/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/Video/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/ObjectTracking/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/tags/Lane/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -269,14 +285,14 @@
   
   <url>
     <loc>https://urealtoby.github.io/categories/code/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://urealtoby.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-07-10</lastmod>
+    <lastmod>2022-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>认知神经科学: 感觉与知觉（上）</title>
+      <link href="/2022/07/13/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6-%E6%84%9F%E8%A7%89%E4%B8%8E%E7%9F%A5%E8%A7%89%EF%BC%88%E4%B8%8A%EF%BC%89/"/>
+      <url>/2022/07/13/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6-%E6%84%9F%E8%A7%89%E4%B8%8E%E7%9F%A5%E8%A7%89%EF%BC%88%E4%B8%8A%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h1 id="眼球"><a class="markdownIt-Anchor" href="#眼球"></a> 眼球</h1><p><img src="../imgs/CN-1.1-3.png" alt="眼球结构" /></p><p><img src="../imgs/CN-1.1-4.png" alt="视网膜" /><br />视网膜最后方，有两种感光细胞（Photoreceptor）：</p><ul><li>锥细胞（Cones）：颜色感强，明亮环境视觉</li><li>杆细胞（Rods）：感光度强，昏暗环境视觉</li></ul><p>不同感光细胞对颜色的敏感度也不同<br /><img src="../imgs/CN-1.1-8.png" alt="敏感度" /></p><p>视网膜前方，有处理视觉信息的不感光细胞：</p><ul><li>神经节细胞（Ganglion cell）：处理视觉信息</li><li>视神经（optic nerve fibers）</li></ul><p>眼球正中央存在没有血管，感光细胞最密的中央凹（fovea），此处不存在不感光细胞，是视野最清楚的地方。</p><p><img src="../imgs/CN-1.1-5.png" alt="中央凹" /><br /><img src="../imgs/CN-1.1-6.png" alt="中央凹" /></p><p>中央凹只有视锥细胞，且密度远大于其他地方——解析度高，但是感光能力弱。</p><p>由于视神经与血管离开眼球，所以存在视觉盲点。（无脊椎动物感光细胞在前方，所以没有视觉盲点）。</p><p>在视觉盲点上，不会收到任何光学信号，神经系统会根据上下文自动生成（背景色，规则图像等）。</p><p>眼球会有不自主的细微动作，只有专注一会才会停止，因为如果太久不“更新”感光细胞，其会产生“适应”的效果（对颜色感减弱等），同时能增加一定视觉能力，即看清周围信息。</p><p>看一段句子时，每0.2秒左右会出现一个凝视点（通常在关键点上，而不是每个字都看的时间相同），可以帮助人更好的理解文本。</p><h1 id="神经网络"><a class="markdownIt-Anchor" href="#神经网络"></a> 神经网络</h1><p><img src="../imgs/CN-1.1-9.png" alt="视觉神经信号的传到路径" /></p><p>神经，同侧交叉，异侧不交叉（图中红蓝线路），以达到左视野的神经信号传递给右脑，右视野的神经信号传递给左脑，如下图所示。</p><p><img src="../imgs/CN-1.1-10.png" alt="大脑不同区域所处理的视觉信息" /></p><p>视觉信息首先经过名为<code>LGN</code>的“中继站”，在顶叶处理空间信息以及运动信息，在颞叶处理颜色和形状。<br /><img src="../imgs/CN-1.1-11.png" alt="视觉信号传递" /></p><p>大脑控制眼球运动前，视野会先进行“预测性更新”，即在眼球移动前，视野先更新到了眼球要移动的地方，而用手按压眼球改变位置则不会。</p><p><img src="../imgs/CN-1.1-12.png" alt="预测性更新" /></p><p>控制眼球肌肉运动时，会送一个副本给视觉脑区，先更新视野，同时控制肌肉移动眼球。</p><p>近距离立体感的原因是两眼存在视差，两只眼睛所看到的景象不同，大脑才可以建立出立体感，而远距离两眼所见的差不多，可以通过遮蔽、透视、大小关系、以及熟悉的大小这些静止的关系，以及动态的“光流”（相对运动信息）来判断。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Paper Reading: Bridging the Gap between Object and Image-level Representations for Open-Vocabulary Detection</title>
       <link href="/2022/07/13/Paper-Reading-Bridging-the-Gap-between-Object-and-Image-level-Representations-for-Open-Vocabulary-Detection/"/>
       <url>/2022/07/13/Paper-Reading-Bridging-the-Gap-between-Object-and-Image-level-Representations-for-Open-Vocabulary-Detection/</url>

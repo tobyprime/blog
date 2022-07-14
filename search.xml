@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Coding: Python 列表推导式骚操作</title>
+      <link href="/2022/07/14/Coding-Python-%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E9%AA%9A%E6%93%8D%E4%BD%9C/"/>
+      <url>/2022/07/14/Coding-Python-%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E9%AA%9A%E6%93%8D%E4%BD%9C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="移动-0"><a class="markdownIt-Anchor" href="#移动-0"></a> 移动 0</h1><h2 id="原题"><a class="markdownIt-Anchor" href="#原题"></a> 原题</h2><p>给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。</p><p>请注意 ，必须在不复制数组的情况下原地对数组进行操作。</p><h2 id="标准方法"><a class="markdownIt-Anchor" href="#标准方法"></a> 标准方法</h2><p><a href="https://blog.csdn.net/weixin_38997425/article/details/">https://blog.csdn.net/weixin_38997425/article/details/</a><br />一个快指针与一个慢指针，慢指针找到0后，等待快指针找到第一个不为0的数，两者调换</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">moveZeroes</span>(<span class="params">nums: <span class="built_in">list</span></span>)-&gt;<span class="built_in">list</span>:</span><br><span class="line">    slow, fast = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> slow &lt; <span class="built_in">len</span>(nums):</span><br><span class="line">        <span class="keyword">if</span> nums[slow] == <span class="number">0</span>:</span><br><span class="line">            fast = slow + <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> fast &lt; <span class="built_in">len</span>(nums):</span><br><span class="line">                <span class="keyword">if</span> nums[fast] != <span class="number">0</span>:</span><br><span class="line">                    temp = nums[slow]</span><br><span class="line">                    nums[slow] = nums[fast]</span><br><span class="line">                    nums[fast] = temp</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                fast += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> fast &gt;= <span class="built_in">len</span>(nums):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        slow += <span class="number">1</span></span><br><span class="line">    retrun nums</span><br><span class="line"><span class="comment"># 排序50000个元素的列表花费24.44524秒</span></span><br></pre></td></tr></table></figure><h2 id="使用列表推导式"><a class="markdownIt-Anchor" href="#使用列表推导式"></a> 使用列表推导式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">moveZeroes</span>(<span class="params">nums: <span class="built_in">list</span></span>) -&gt; <span class="built_in">list</span>:</span><br><span class="line">    <span class="keyword">return</span> [i <span class="keyword">for</span> i <span class="keyword">in</span> nums <span class="keyword">if</span> i != <span class="number">0</span>] + nums.count(<span class="number">0</span>)*[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># 排序50000个元素的列表花费0.00097秒</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> code </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Coding </tag>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>认知神经科学: 感觉与知觉（中）</title>
       <link href="/2022/07/14/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6-%E6%84%9F%E8%A7%89%E4%B8%8E%E7%9F%A5%E8%A7%89%EF%BC%88%E4%B8%AD%EF%BC%89/"/>
       <url>/2022/07/14/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6-%E6%84%9F%E8%A7%89%E4%B8%8E%E7%9F%A5%E8%A7%89%EF%BC%88%E4%B8%AD%EF%BC%89/</url>

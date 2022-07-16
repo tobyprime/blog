@@ -1,3 +1,4 @@
+https://urealtoby.github.io/pixiv/index.html
 https://urealtoby.github.io/gallery/index.html
 https://urealtoby.github.io/gallery/game.html
 https://urealtoby.github.io/websites/index.html
@@ -10,7 +11,6 @@ https://urealtoby.github.io/2022/07/14/Paper-Reading-Distilling-the-Knowledge-in
 https://urealtoby.github.io/2022/07/13/Paper-Reading-Bridging-the-Gap-between-Object-and-Image-level-Representations-for-Open-Vocabulary-Detection/
 https://urealtoby.github.io/2022/07/12/Paper-Reading-MAE/
 https://urealtoby.github.io/2022/07/11/Paper-Reading-DALL-E-2/
-https://urealtoby.github.io/pixiv/index.html
 https://urealtoby.github.io/air-conditioning/index.html
 https://urealtoby.github.io/2022/06/30/Coding-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F/
 https://urealtoby.github.io/link/index.html

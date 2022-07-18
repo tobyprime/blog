@@ -1,10 +1,11 @@
+https://urealtoby.github.io/2022/07/18/Coding-%E4%BD%BF%E7%94%A8-Yolo-%E7%9A%84%E5%AE%89%E5%85%A8%E5%B8%BD%E6%A3%80%E6%B5%8B/
+https://urealtoby.github.io/2022/07/14/Coding-Python-%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E9%AA%9A%E6%93%8D%E4%BD%9C/
 https://urealtoby.github.io/gallery/game.html
 https://urealtoby.github.io/2022/07/18/Paper-Reading-Earhformer/
 https://urealtoby.github.io/pixiv/index.html
 https://urealtoby.github.io/gallery/index.html
 https://urealtoby.github.io/websites/index.html
 https://urealtoby.github.io/2022/07/15/Paper-Reading-RepVGG/
-https://urealtoby.github.io/2022/07/14/Coding-Python-%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E9%AA%9A%E6%93%8D%E4%BD%9C/
 https://urealtoby.github.io/2022/07/13/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6-%E6%84%9F%E8%A7%89%E4%B8%8E%E7%9F%A5%E8%A7%89%EF%BC%88%E4%B8%8A%EF%BC%89/
 https://urealtoby.github.io/2022/07/14/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6-%E6%84%9F%E8%A7%89%E4%B8%8E%E7%9F%A5%E8%A7%89%EF%BC%88%E4%B8%AD%EF%BC%89/
 https://urealtoby.github.io/about/index.html
@@ -36,9 +37,9 @@ https://urealtoby.github.io/
 https://urealtoby.github.io/tags/Coding/
 https://urealtoby.github.io/tags/Python/
 https://urealtoby.github.io/tags/DeepLearning/
+https://urealtoby.github.io/tags/CV/
 https://urealtoby.github.io/tags/Note/
 https://urealtoby.github.io/tags/Paper/
-https://urealtoby.github.io/tags/CV/
 https://urealtoby.github.io/tags/Transformer/
 https://urealtoby.github.io/tags/Multimodal/
 https://urealtoby.github.io/tags/KeyPoint/

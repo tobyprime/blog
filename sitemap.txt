@@ -1,4 +1,6 @@
+https://urealtoby.github.io/2022/07/20/Paper-Reading-CLRNet/
 https://urealtoby.github.io/2022/07/19/Paper-Reading-CoNR/
+https://urealtoby.github.io/2022/06/28/Paper-Reading-Ultra-Fast-Structure-aware-Deep-Lane-Detection/
 https://urealtoby.github.io/2022/07/18/Coding-%E4%BD%BF%E7%94%A8-Yolo-%E7%9A%84%E5%AE%89%E5%85%A8%E5%B8%BD%E6%A3%80%E6%B5%8B/
 https://urealtoby.github.io/2022/07/14/Coding-Python-%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E9%AA%9A%E6%93%8D%E4%BD%9C/
 https://urealtoby.github.io/gallery/game.html
@@ -31,7 +33,6 @@ https://urealtoby.github.io/2022/06/21/Paper-Reading-Mask-R-CNN/
 https://urealtoby.github.io/2022/06/22/Paper-Reading-ResNeSt/
 https://urealtoby.github.io/2022/06/23/Paper-Reading-SENet/
 https://urealtoby.github.io/2022/06/27/Paper-Reading-Vision-Transformer/
-https://urealtoby.github.io/2022/06/28/Paper-Reading-Ultra-Fast-Structure-aware-Deep-Lane-Detection/
 https://urealtoby.github.io/2022/06/24/Paper-Reading-Swin-Transformer/
 https://urealtoby.github.io/2022/07/06/Paper-Reading-SiamFC/
 https://urealtoby.github.io/
@@ -43,15 +44,15 @@ https://urealtoby.github.io/tags/Note/
 https://urealtoby.github.io/tags/Paper/
 https://urealtoby.github.io/tags/Transformer/
 https://urealtoby.github.io/tags/Multimodal/
-https://urealtoby.github.io/tags/KeyPoint/
+https://urealtoby.github.io/tags/LaneDetection/
 https://urealtoby.github.io/tags/NeuralRendering/
 https://urealtoby.github.io/tags/%E6%B0%B4/
+https://urealtoby.github.io/tags/KeyPoint/
 https://urealtoby.github.io/tags/ImageGeneration/
 https://urealtoby.github.io/tags/Face-Recognition/
 https://urealtoby.github.io/tags/DistillingKnowledge/
 https://urealtoby.github.io/tags/Video/
 https://urealtoby.github.io/tags/ObjectTracking/
-https://urealtoby.github.io/tags/Lane/
 https://urealtoby.github.io/tags/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/
 https://urealtoby.github.io/categories/code/
 https://urealtoby.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/

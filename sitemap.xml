@@ -409,13 +409,6 @@
   </url>
   
   <url>
-    <loc>https://urealtoby.github.io/tags/LaneDetection/</loc>
-    <lastmod>2022-07-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://urealtoby.github.io/tags/NeuralRendering/</loc>
     <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -424,6 +417,13 @@
   
   <url>
     <loc>https://urealtoby.github.io/tags/%E6%B0%B4/</loc>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://urealtoby.github.io/tags/LaneDetection/</loc>
     <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

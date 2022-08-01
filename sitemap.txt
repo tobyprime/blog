@@ -1,6 +1,8 @@
+https://tobyprime.top/gallery/painting.html
+https://tobyprime.top/2022/08/01/Paper-Reading-ViLT/
+https://tobyprime.top/2022/07/08/Paper-Reading-CLIP/
 https://tobyprime.top/2022/06/27/Paper-Reading-DEtection-TRansformer/
 https://tobyprime.top/gallery/index.html
-https://tobyprime.top/gallery/painting.html
 https://tobyprime.top/websites/index.html
 https://tobyprime.top/2022/07/25/Paper-Reading-XMem/
 https://tobyprime.top/2022/07/26/%E5%AE%A3%E4%BC%A0%E4%B8%80%E4%B8%AAMC%E6%9C%8D%E5%8A%A1%E5%99%A8/
@@ -26,7 +28,6 @@ https://tobyprime.top/link/index.html
 https://tobyprime.top/tags/index.html
 https://tobyprime.top/categories/index.html
 https://tobyprime.top/2022/06/30/Paper-Reading-BYOL/
-https://tobyprime.top/2022/07/08/Paper-Reading-CLIP/
 https://tobyprime.top/2022/06/29/Paper-Reading-Convolutional-Pose-Machines/
 https://tobyprime.top/2022/07/05/Paper-Reading-DeepID/
 https://tobyprime.top/2022/07/01/Paper-Reading-Exploiting-Temporal-Contexts-with-StridedTransformer-for-3D-Human-Pose-Estimation/
@@ -56,6 +57,7 @@ https://tobyprime.top/tags/Face-Recognition/
 https://tobyprime.top/tags/DistillingKnowledge/
 https://tobyprime.top/tags/Video/
 https://tobyprime.top/tags/ObjectTracking/
+https://tobyprime.top/tags/VLP/
 https://tobyprime.top/tags/VOS/
 https://tobyprime.top/tags/Game/
 https://tobyprime.top/tags/Minecraft/

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://tobyprime.top/gallery/painting.html</loc>
+    <loc>https://tobyprime.top/2022/06/23/Paper-Reading-SENet/</loc>
     
     <lastmod>2022-08-01</lastmod>
     
@@ -12,6 +12,15 @@
   
   <url>
     <loc>https://tobyprime.top/2022/08/01/Paper-Reading-ViLT/</loc>
+    
+    <lastmod>2022-08-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tobyprime.top/gallery/painting.html</loc>
     
     <lastmod>2022-08-01</lastmod>
     
@@ -327,15 +336,6 @@
   
   <url>
     <loc>https://tobyprime.top/2022/06/22/Paper-Reading-ResNeSt/</loc>
-    
-    <lastmod>2022-07-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://tobyprime.top/2022/06/23/Paper-Reading-SENet/</loc>
     
     <lastmod>2022-07-08</lastmod>
     

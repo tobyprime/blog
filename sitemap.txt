@@ -1,5 +1,6 @@
-https://tobyprime.top/gallery/painting.html
+https://tobyprime.top/2022/06/23/Paper-Reading-SENet/
 https://tobyprime.top/2022/08/01/Paper-Reading-ViLT/
+https://tobyprime.top/gallery/painting.html
 https://tobyprime.top/2022/07/08/Paper-Reading-CLIP/
 https://tobyprime.top/2022/06/27/Paper-Reading-DEtection-TRansformer/
 https://tobyprime.top/gallery/index.html
@@ -35,7 +36,6 @@ https://tobyprime.top/2022/07/04/Paper-Reading-FaceNet/
 https://tobyprime.top/2022/07/07/Paper-Reading-I3D/
 https://tobyprime.top/2022/06/21/Paper-Reading-Mask-R-CNN/
 https://tobyprime.top/2022/06/22/Paper-Reading-ResNeSt/
-https://tobyprime.top/2022/06/23/Paper-Reading-SENet/
 https://tobyprime.top/2022/06/27/Paper-Reading-Vision-Transformer/
 https://tobyprime.top/2022/06/24/Paper-Reading-Swin-Transformer/
 https://tobyprime.top/2022/07/06/Paper-Reading-SiamFC/

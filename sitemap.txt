@@ -54,8 +54,8 @@ https://tobyprime.top/tags/LaneDetection/
 https://tobyprime.top/tags/NeuralRendering/
 https://tobyprime.top/tags/%E6%B0%B4/
 https://tobyprime.top/tags/KeyPoint/
-https://tobyprime.top/tags/FaceRecognition/
 https://tobyprime.top/tags/ImageGeneration/
+https://tobyprime.top/tags/FaceRecognition/
 https://tobyprime.top/tags/DistillingKnowledge/
 https://tobyprime.top/tags/Video/
 https://tobyprime.top/tags/ObjectTracking/

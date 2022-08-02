@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tobyprime.top/2022/07/04/Paper-Reading-FaceNet/</loc>
+    
+    <lastmod>2022-08-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tobyprime.top/2022/07/05/Paper-Reading-DeepID/</loc>
+    
+    <lastmod>2022-08-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://tobyprime.top/2022/08/02/Paper-Reading-BLIP/</loc>
     
     <lastmod>2022-08-02</lastmod>
@@ -299,25 +317,7 @@
   </url>
   
   <url>
-    <loc>https://tobyprime.top/2022/07/05/Paper-Reading-DeepID/</loc>
-    
-    <lastmod>2022-07-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://tobyprime.top/2022/07/01/Paper-Reading-Exploiting-Temporal-Contexts-with-StridedTransformer-for-3D-Human-Pose-Estimation/</loc>
-    
-    <lastmod>2022-07-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://tobyprime.top/2022/07/04/Paper-Reading-FaceNet/</loc>
     
     <lastmod>2022-07-08</lastmod>
     
@@ -480,14 +480,14 @@
   </url>
   
   <url>
-    <loc>https://tobyprime.top/tags/ImageGeneration/</loc>
+    <loc>https://tobyprime.top/tags/FaceRecognition/</loc>
     <lastmod>2022-08-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://tobyprime.top/tags/Face-Recognition/</loc>
+    <loc>https://tobyprime.top/tags/ImageGeneration/</loc>
     <lastmod>2022-08-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

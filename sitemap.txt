@@ -1,3 +1,5 @@
+https://tobyprime.top/2022/07/04/Paper-Reading-FaceNet/
+https://tobyprime.top/2022/07/05/Paper-Reading-DeepID/
 https://tobyprime.top/2022/08/02/Paper-Reading-BLIP/
 https://tobyprime.top/2022/08/01/Paper-Reading-ViLT/
 https://tobyprime.top/2022/06/23/Paper-Reading-SENet/
@@ -31,9 +33,7 @@ https://tobyprime.top/tags/index.html
 https://tobyprime.top/categories/index.html
 https://tobyprime.top/2022/06/30/Paper-Reading-BYOL/
 https://tobyprime.top/2022/06/29/Paper-Reading-Convolutional-Pose-Machines/
-https://tobyprime.top/2022/07/05/Paper-Reading-DeepID/
 https://tobyprime.top/2022/07/01/Paper-Reading-Exploiting-Temporal-Contexts-with-StridedTransformer-for-3D-Human-Pose-Estimation/
-https://tobyprime.top/2022/07/04/Paper-Reading-FaceNet/
 https://tobyprime.top/2022/07/07/Paper-Reading-I3D/
 https://tobyprime.top/2022/06/21/Paper-Reading-Mask-R-CNN/
 https://tobyprime.top/2022/06/22/Paper-Reading-ResNeSt/
@@ -54,8 +54,8 @@ https://tobyprime.top/tags/LaneDetection/
 https://tobyprime.top/tags/NeuralRendering/
 https://tobyprime.top/tags/%E6%B0%B4/
 https://tobyprime.top/tags/KeyPoint/
+https://tobyprime.top/tags/FaceRecognition/
 https://tobyprime.top/tags/ImageGeneration/
-https://tobyprime.top/tags/Face-Recognition/
 https://tobyprime.top/tags/DistillingKnowledge/
 https://tobyprime.top/tags/Video/
 https://tobyprime.top/tags/ObjectTracking/

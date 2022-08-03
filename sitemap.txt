@@ -1,3 +1,4 @@
+https://tobyprime.top/2022/07/18/Paper-Reading-Earthformer/
 https://tobyprime.top/2022/08/03/Paper-Reading-Pixel-BERT/
 https://tobyprime.top/2022/08/01/Paper-Reading-ViLT/
 https://tobyprime.top/2022/07/04/Paper-Reading-FaceNet/
@@ -17,7 +18,6 @@ https://tobyprime.top/2022/07/20/Paper-Reading-CLRNet/
 https://tobyprime.top/2022/07/19/Paper-Reading-CoNR/
 https://tobyprime.top/2022/06/28/Paper-Reading-Ultra-Fast-Structure-aware-Deep-Lane-Detection/
 https://tobyprime.top/2022/07/14/Coding-Python-%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E9%AA%9A%E6%93%8D%E4%BD%9C/
-https://tobyprime.top/2022/07/18/Paper-Reading-Earhformer/
 https://tobyprime.top/pixiv/index.html
 https://tobyprime.top/2022/07/15/Paper-Reading-RepVGG/
 https://tobyprime.top/2022/07/13/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6-%E6%84%9F%E8%A7%89%E4%B8%8E%E7%9F%A5%E8%A7%89%EF%BC%88%E4%B8%8A%EF%BC%89/

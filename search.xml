@@ -4,6 +4,54 @@
   
     
     <entry>
+      <title>永久关闭WIN10升级WIN11提醒</title>
+      <link href="/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/"/>
+      <url>/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/</url>
+      
+        <content type="html"><![CDATA[<h1 id="停止windows更新服务"><a class="markdownIt-Anchor" href="#停止windows更新服务"></a> 停止windows更新服务</h1><img src="/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/1.png" class=""><p>打开 windows service管理器。</p><img src="/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/2.png" class=""><p>找到 Windows Update 服务</p><img src="/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/3.png" class=""><img src="/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/4.png" class=""><p>修改<code>常规-启动类型</code>为禁用，<code>恢复-第一次失败</code>为无操作，然后点击<code>常规-停止</code>停止服务，点击<code>应用</code>退出。</p><h1 id="删除本地更新文件缓存"><a class="markdownIt-Anchor" href="#删除本地更新文件缓存"></a> 删除本地更新文件缓存</h1><img src="/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/5.png" class=""><p>删除<code>C:\$WINDOWS.~BT</code>下所有文件（ps. 为隐藏文件夹，且需要系统权限）<br />重启即可。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Paper Reading: ViLBERT</title>
+      <link href="/2022/08/04/Paper-Reading-ViLBERT/"/>
+      <url>/2022/08/04/Paper-Reading-ViLBERT/</url>
+      
+        <content type="html"><![CDATA[<p>本文提出了一个<strong>学习与任务</strong>无关的<code>VLP</code>模型，将<code>BERT</code>拓展到一个多模态的<strong>双流模型</strong>。通过<code>co-atten</code>进行不同模态的信息交互。</p><p>在大型的自动收集的数据集上预训练，可以容易的迁移到多种下游任务（MLM，VLM，MVM）。</p><p>将视觉基础（<code>visual grounding</code>）作为一种可预训练和迁移的能力。</p><h1 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h1><p><code>VLP</code>任务没有一个统一的方法提升不同模态的融合能力，通常先分别预训练语言和视觉模型，再通过微调学习文本与图像之间的<code>grounding</code>，通过这种方法学到的<code>grounding</code>并不可靠，如果数据量小，或存在大量噪音，那么模型的泛化能力会很差。</p><p>在单模态上拥有完美的模型，但无法在两个模态之间学习到联系，在下游任务中也没有什么用。因此，本文开发一个通用的<code>visual grounding</code>模型，<strong>在预训练中可以学习视觉与语言的联系，并在广泛的视觉和语言任务中利用它们——也就是说，我们寻求对<code>visual grounding</code>进行预训练</strong>。</p><p>为了学习视觉-语言的联合表征，本文使用多个代理任务（对图像进行着色或重建文本中的被屏蔽的词），以无监督的方式从<strong>大量没有标签的数据中学习</strong>丰富的语义和结构信息。本文使用一个视觉和语言能够对齐的数据源概念性标题数据集（Conceptual Caption）来学习模态之间的关系。</p><p>ViLTBERT从成对的图像-文本数据中学习与目标任务无关的<code>visual grounding</code>，扩展了<code>BERT</code>为每个模态引入了单独流，通过<code>co-atten</code>的<code>Transofrmer</code>层进行不同模态之间的信息交互。这种结构就可以适应每种模态的不同需求。</p><h1 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h1><p>一种直接的方法是对BERT进行最小的改动–通过聚类简单地将视觉输入空间离散化，将这些视觉<code>token</code>与文本输入完全一样，输入到预训练过的<code>BERT</code>，存在缺点：</p><ul><li>将图像输入的空间离散化可能会导致失去视觉细节。</li><li>图像区域可能比句子中的单词有更弱的关系，而视觉特征本身往往已经是一个非常深入的网络的输出。</li><li>强迫预训练的权重去适应大量的额外的视觉<code>token</code>，可能会损害学到的<code>BERT</code>语言模型。</li></ul><img src="/2022/08/04/Paper-Reading-ViLBERT/1.png" class=""><p>为此，我们开发了一个双流架构，分别<strong>对每个模态进行建模，然后通过一小套基于注意力的互动来进行不同模态的融合</strong>。这种方法能在不同的深度上实现跨模态连接。</p><p>如图一所示，<code>ViLBERT</code>由两个平行的<code>BERT</code>模型组成，在图像区域和文本片段上运行。每个数据流都是一系列的<code>Transforemr</code>块（<code>TRM</code>）和<code>co-atten transoformer</code>层（<code>Co-TRM</code>）构成，我们引入这些变换器以实现不同模态之间的信息交互。两个流之间的交流被限制在特定的层之间，并且文本流在与视觉特征互动之前有明显更多的处理——视觉特征更加高级，与句子中的单词相比，只需要更有限的上下文汇总。</p><h2 id="图像表示"><a class="markdownIt-Anchor" href="#图像表示"></a> 图像表示</h2><p><strong>从预先训练好的目标检测器中提取区域特征</strong>。我们对空间位置进行编码，构建一个5维矢量与边缘框的左上角坐标、右下角坐标、图像大小占比分别相加。使用代表整个图像的特殊<code>IMG token</code>作为图像序列的开始。</p><h2 id="预训练任务"><a class="markdownIt-Anchor" href="#预训练任务"></a> 预训练任务</h2><img src="/2022/08/04/Paper-Reading-ViLBERT/2.png" class=""><p>我们考虑两个预训练任务：</p><ul><li><p><strong>遮罩多模态建模</strong>。屏蔽 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>15</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">15\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">%</span></span></span></span> 的图像区域和单词输入，让模型通过上下文信息重建它们。被遮罩的区域 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>90</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">90\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">9</span><span class="mord">0</span><span class="mord">%</span></span></span></span> 的概率遮挡，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">10\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">%</span></span></span></span> 的概率保持不变。不直接对被遮蔽的图像特征值进行回归，而是预测相应图像区域的语义类别分布。为了监督这一点，我们从用于特征提取的同一预训练检测模型中获取该区域的输出分布。我们训练模型以最小化这两个分布之间的<code>KL散度</code>。屏蔽文本输入的处理与<code>BERT</code>相同。</p></li><li><p><strong>图文匹配</strong>。预测文字是否描述了图像，文章把输出的和作为视觉和语言输入的整体表示，借用视觉和语言模型的另一个常见结构，我们将整体表征计算为<code>IMG token</code>位置的输出和<code>CLS token</code>位置的输出之间的元素乘积，并学习一个线性层来进预测。为了生成负样本，我们随机地将图像或标题替换成其他数据。</p></li></ul><div class="note green icon disabled"><i class="note-icon fas fa-file-pdf"></i><p><a href="https://arxiv.org/abs/1908.02265">https://arxiv.org/abs/1908.02265</a></p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 论文笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> DeepLearning </tag>
+            
+            <tag> Note </tag>
+            
+            <tag> Paper </tag>
+            
+            <tag> Multimodal </tag>
+            
+            <tag> Transformer </tag>
+            
+            <tag> VLP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Paper Reading: Pixel-BERT</title>
       <link href="/2022/08/03/Paper-Reading-Pixel-BERT/"/>
       <url>/2022/08/03/Paper-Reading-Pixel-BERT/</url>

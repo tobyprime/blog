@@ -4,6 +4,76 @@
   
     
     <entry>
+      <title>Paper Reading: ImageBERT</title>
+      <link href="/2022/08/08/Paper-Reading-ImageBERT/"/>
+      <url>/2022/08/08/Paper-Reading-ImageBERT/</url>
+      
+        <content type="html"><![CDATA[<p>由人类手动编写的图像描述是高质量的，但时分昂贵。为了利用互联网上有无数的网页相关的图像。本文设计了一种弱监督的方法收集来自网络的大规模图文对数据。由此产生的数据集<code>LAIT</code>（Large-scale weAk-supervised Image-Text）包含1000万张图片以及平均长度为13个单词的描述。我们将在实验中表明，<code>LAIT</code>对视觉语言预训练是有益的。</p><img src="/2022/08/08/Paper-Reading-ImageBERT/1.png" class=""><h1 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h1><p>从网络上抓取数十亿的网页</p><h2 id="web-page-collection"><a class="markdownIt-Anchor" href="#web-page-collection"></a> Web-page Collection：</h2><ul><li>丢弃非英语的网页</li><li>我们解析每个网页收集图像URL</li><li>通过HTML标签和DOM树的特征检测主导图像。</li><li>非主导图像被丢弃</li></ul><h2 id="image-content-based-filtering"><a class="markdownIt-Anchor" href="#image-content-based-filtering"></a> Image Content Based Filtering：</h2><ul><li>只保留宽度和高度都大于300像素的图片。</li><li>过滤不和谐图片。</li><li>应用二元分类器来丢弃不自然的、不真实的和不可读的图像。</li></ul><h2 id="sentence-detection-cleaning"><a class="markdownIt-Anchor" href="#sentence-detection-cleaning"></a> Sentence Detection &amp; Cleaning:</h2><p>使用以下数据源作为图片的文本描述：</p><ul><li>HTML中用户定义的元数据，如Alt或Title属性，</li><li>图片的周围文本等；</li><li>我们制定了一系列启发式规则</li><li>过滤掉句子中的不良跨度和噪声词（垃圾邮件/色情），并将句子保持在正常长度内。</li><li>摒弃那些有高频的句子。</li></ul><h2 id="image-text-semantic-scoring"><a class="markdownIt-Anchor" href="#image-text-semantic-scoring"></a> Image-Text Semantic Scoring</h2><p>我们要确保文本和图像在语义上是相关的。通过小规模的监督图像-文本数据，训练一个弱图像-文本语义模型来预测相关性。以过滤掉不相关的对。</p><h2 id="image-text-aggregation"><a class="markdownIt-Anchor" href="#image-text-aggregation"></a> Image-Text Aggregation.</h2><p>一张图片从多个网页上下载，因此有不同的文字描述。在这种情况下，我们只选择得分最高的&lt;文本，图像&gt;对。如果有太多的图像具有相同的描述，我们将直接从语料库中删除所有这些对。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 论文笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> DeepLearning </tag>
+            
+            <tag> Note </tag>
+            
+            <tag> Paper </tag>
+            
+            <tag> Multimodal </tag>
+            
+            <tag> Transformer </tag>
+            
+            <tag> VLP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Paper Reading: CLIP-ViL</title>
+      <link href="/2022/08/08/Paper-Reading-CLIP-ViL/"/>
+      <url>/2022/08/08/Paper-Reading-CLIP-ViL/</url>
+      
+        <content type="html"><![CDATA[<p>在大量从网络获取的图文对上训练的<code>CLIP</code>在下游任务上表现出了强大的<code>0-shot</code>能力。为了挖掘<code>CLIP</code>在<code>V&amp;L</code>任务所带来的优势，本文提出在两个场景使用<code>CLIP</code>作为视觉编码器：</p><ul><li>插入<code>CLIP</code>到特定任务微调。</li><li>将<code>CLIP</code>与<code>V&amp;L</code>模型共同训练。</li></ul><h1 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h1><p>最近的工作观测到视觉表示成为为<code>V&amp;L</code>模型的性能瓶颈，学习强大视觉编码器对于<code>V&amp;L</code>模型是至关重要的。</p><p>但是现在广泛使用的视觉编码器使用手动标注的数据集训练，标注成本高，且视觉表征能力受到预先定义的类别标签的限制。所以，需要一种不受固定标签集限制，对未见过的物体和概念具有概括能力的视觉编码器，能够在大规模数据集上预训练。</p><p>最近<code>CLIP</code>被提出用来基于语言监督学习视觉概念。它是在从互联网上抓取的4亿个噪声图像文本对上训练的，并需要很少的人类注释。且有强大的<code>0-shot</code>能力。然而，直接将<code>CLIP</code>作为<code>0-shot</code>模型应用于<code>V&amp;L</code>任务被证明是困难的，因为许多<code>V&amp;L</code>任务需要复杂的多模式推理。</p><p>本文首次对使用CLIP作为V&amp;L任务的视觉编码器的大规模实证研究-&gt;</p><ul><li>将<code>CLIP</code>插入到直接的特定任务的微调中，将其称为<code>CLIP-ViL</code>，在视觉问题回答，图像字幕，以及视觉和语言导航带来了可观的改进。</li><li>将<code>CLIP</code>与图像文本对的<code>V&amp;L</code>预训练相结合，并转移到下游任务，称为<code>CLIP-ViLp</code>，在三个基准上表现异常出色，包括<code>VQA</code>、<code>SNLI-VE</code>和<code>GQA</code>在<code>VQA</code>创造新的<code>SOTA</code>。</li></ul><h1 id="实验结果"><a class="markdownIt-Anchor" href="#实验结果"></a> 实验结果</h1><h2 id="clip-vil"><a class="markdownIt-Anchor" href="#clip-vil"></a> CLIP-ViL</h2><h3 id="vqav20"><a class="markdownIt-Anchor" href="#vqav20"></a> VQAv2.0</h3><img src="/2022/08/08/Paper-Reading-CLIP-ViL/1.png" class=""><p>上面部分为与在<code>ImageNet</code>分类任务上预训练的视觉特征提取器相比。下面为对<code>Visual-Genome</code>（<code>VG</code>）进行进一步检测预训练后的结果。<br /><code>*</code>标志着来自（Jiang等人，2020）的结果。<code>R</code>表示区域特征，而其他方法使用网格特征。</p><h3 id="image-captioning"><a class="markdownIt-Anchor" href="#image-captioning"></a> Image Captioning</h3><img src="/2022/08/08/Paper-Reading-CLIP-ViL/2.png" class=""><h3 id="vision-and-language-navigatior2r"><a class="markdownIt-Anchor" href="#vision-and-language-navigatior2r"></a> Vision-and-Language Navigatio（R2R）</h3><img src="/2022/08/08/Paper-Reading-CLIP-ViL/3.png" class=""><p><code>R2R</code>数据集的不可见的测试结果。<code>SR</code>和<code>SPL</code>是成功率和按路径长度归一化的成功率。预训练方法主要是在<code>Matterport3D</code>环境中进行域内预训练。</p><img src="/2022/08/08/Paper-Reading-CLIP-ViL/4.png" class=""><p>单语设置下的<code>RxR</code>数据集的不可见测试结果。<code>SR</code>和<code>nDTW</code>是指成功率和归一化动态时间扭曲。</p><img src="/2022/08/08/Paper-Reading-CLIP-ViL/5.png" class=""><p>使用原始<code>ResNet</code>特征和<code>CLI</code>P特征变体的<code>R2R</code>和<code>RxR</code>数据集的结果。<code>BT-Agent</code>是用反向翻译（<code>BT</code>）训练的代理。<code>SR</code>是成功率。<code>SPL</code>和<code>nDTW</code>分别是<code>R2R</code>和<code>RxR</code>的主要指标。最好的结果是粗体。</p><h2 id="clip-vilp"><a class="markdownIt-Anchor" href="#clip-vilp"></a> CLIP-ViLp</h2><img src="/2022/08/08/Paper-Reading-CLIP-ViL/6.png" class=""><p>三个视觉和语言任务的评估结果。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 论文笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> DeepLearning </tag>
+            
+            <tag> Note </tag>
+            
+            <tag> Paper </tag>
+            
+            <tag> Multimodal </tag>
+            
+            <tag> Transformer </tag>
+            
+            <tag> VLP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ITerationT 3.0.0 vs 2.0.0</title>
       <link href="/2022/08/07/ITerationT-3-0-0-vs-2-0-0/"/>
       <url>/2022/08/07/ITerationT-3-0-0-vs-2-0-0/</url>

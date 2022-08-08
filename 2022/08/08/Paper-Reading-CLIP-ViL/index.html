@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Paper Reading: CLIP-ViL | Toby的小博客</title><meta name="keywords" content="DeepLearning,Note,Paper,Multimodal,Transformer,VLP"><meta name="author" content="Toby Prime"><meta name="copyright" content="Toby Prime"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在大量从网络获取的图文对上训练的CLIP在下游任务上表现出了强大的0-shot能力。为了挖掘CLIP在V&amp;L任务所带来的优势，本文提出在两个场景使用CLIP作为视觉编码器：  插入CLIP到特定任务微调。 将CLIP与V&amp;L模型共同训练。   Introduction 最近的工作观测到视觉表示成为为V&amp;L模型的性能瓶颈，学习强大视觉编码器对于V&amp;L模型是至关重要的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paper Reading: CLIP-ViL">
+<meta property="og:url" content="https://tobyprime.top/2022/08/08/Paper-Reading-CLIP-ViL/index.html">
+<meta property="og:site_name" content="Toby的小博客">
+<meta property="og:description" content="在大量从网络获取的图文对上训练的CLIP在下游任务上表现出了强大的0-shot能力。为了挖掘CLIP在V&amp;L任务所带来的优势，本文提出在两个场景使用CLIP作为视觉编码器：  插入CLIP到特定任务微调。 将CLIP与V&amp;L模型共同训练。   Introduction 最近的工作观测到视觉表示成为为V&amp;L模型的性能瓶颈，学习强大视觉编码器对于V&amp;L模型是至关重要的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0">
+<meta property="article:published_time" content="2022-08-08T11:49:01.000Z">
+<meta property="article:modified_time" content="2022-08-08T11:59:10.719Z">
+<meta property="article:author" content="Toby Prime">
+<meta property="article:tag" content="DeepLearning">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="Paper">
+<meta property="article:tag" content="Multimodal">
+<meta property="article:tag" content="Transformer">
+<meta property="article:tag" content="VLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://tobyprime.top/2022/08/08/Paper-Reading-CLIP-ViL/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Paper Reading: CLIP-ViL',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-08 19:59:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/websites/"><i class="fa-fw fas fa-map"></i><span> 常用网站</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 奇奇怪怪</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/pixiv/"><i class="fa-fw fas fa-image"></i><span> 随机图片</span></a></li><li><a class="site-page child" href="/air-conditioning/"><i class="fa-fw fa fa-feed"></i><span> 空调房</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Toby的小博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/websites/"><i class="fa-fw fas fa-map"></i><span> 常用网站</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 奇奇怪怪</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/pixiv/"><i class="fa-fw fas fa-image"></i><span> 随机图片</span></a></li><li><a class="site-page child" href="/air-conditioning/"><i class="fa-fw fa fa-feed"></i><span> 空调房</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Paper Reading: CLIP-ViL</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-08T11:49:01.000Z" title="发表于 2022-08-08 19:49:01">2022-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-08T11:59:10.719Z" title="更新于 2022-08-08 19:59:10">2022-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">731</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Paper Reading: CLIP-ViL"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>在大量从网络获取的图文对上训练的<code>CLIP</code>在下游任务上表现出了强大的<code>0-shot</code>能力。为了挖掘<code>CLIP</code>在<code>V&amp;L</code>任务所带来的优势，本文提出在两个场景使用<code>CLIP</code>作为视觉编码器：</p>
+<ul>
+<li>插入<code>CLIP</code>到特定任务微调。</li>
+<li>将<code>CLIP</code>与<code>V&amp;L</code>模型共同训练。</li>
+</ul>
+<h1 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h1>
+<p>最近的工作观测到视觉表示成为为<code>V&amp;L</code>模型的性能瓶颈，学习强大视觉编码器对于<code>V&amp;L</code>模型是至关重要的。</p>
+<p>但是现在广泛使用的视觉编码器使用手动标注的数据集训练，标注成本高，且视觉表征能力受到预先定义的类别标签的限制。所以，需要一种不受固定标签集限制，对未见过的物体和概念具有概括能力的视觉编码器，能够在大规模数据集上预训练。</p>
+<p>最近<code>CLIP</code>被提出用来基于语言监督学习视觉概念。它是在从互联网上抓取的4亿个噪声图像文本对上训练的，并需要很少的人类注释。且有强大的<code>0-shot</code>能力。然而，直接将<code>CLIP</code>作为<code>0-shot</code>模型应用于<code>V&amp;L</code>任务被证明是困难的，因为许多<code>V&amp;L</code>任务需要复杂的多模式推理。</p>
+<p>本文首次对使用CLIP作为V&amp;L任务的视觉编码器的大规模实证研究-&gt;</p>
+<ul>
+<li>将<code>CLIP</code>插入到直接的特定任务的微调中，将其称为<code>CLIP-ViL</code>，在视觉问题回答，图像字幕，以及视觉和语言导航带来了可观的改进。</li>
+<li>将<code>CLIP</code>与图像文本对的<code>V&amp;L</code>预训练相结合，并转移到下游任务，称为<code>CLIP-ViLp</code>，在三个基准上表现异常出色，包括<code>VQA</code>、<code>SNLI-VE</code>和<code>GQA</code>在<code>VQA</code>创造新的<code>SOTA</code>。</li>
+</ul>
+<h1 id="实验结果"><a class="markdownIt-Anchor" href="#实验结果"></a> 实验结果</h1>
+<h2 id="clip-vil"><a class="markdownIt-Anchor" href="#clip-vil"></a> CLIP-ViL</h2>
+<h3 id="vqav20"><a class="markdownIt-Anchor" href="#vqav20"></a> VQAv2.0</h3>
+<img src="/2022/08/08/Paper-Reading-CLIP-ViL/1.png" class="">
+<p>上面部分为与在<code>ImageNet</code>分类任务上预训练的视觉特征提取器相比。下面为对<code>Visual-Genome</code>（<code>VG</code>）进行进一步检测预训练后的结果。<br />
+<code>*</code>标志着来自（Jiang等人，2020）的结果。<code>R</code>表示区域特征，而其他方法使用网格特征。</p>
+<h3 id="image-captioning"><a class="markdownIt-Anchor" href="#image-captioning"></a> Image Captioning</h3>
+<img src="/2022/08/08/Paper-Reading-CLIP-ViL/2.png" class="">
+<h3 id="vision-and-language-navigatior2r"><a class="markdownIt-Anchor" href="#vision-and-language-navigatior2r"></a> Vision-and-Language Navigatio（R2R）</h3>
+<img src="/2022/08/08/Paper-Reading-CLIP-ViL/3.png" class="">
+<p><code>R2R</code>数据集的不可见的测试结果。<code>SR</code>和<code>SPL</code>是成功率和按路径长度归一化的成功率。预训练方法主要是在<code>Matterport3D</code>环境中进行域内预训练。</p>
+<img src="/2022/08/08/Paper-Reading-CLIP-ViL/4.png" class="">
+<p>单语设置下的<code>RxR</code>数据集的不可见测试结果。<code>SR</code>和<code>nDTW</code>是指成功率和归一化动态时间扭曲。</p>
+<img src="/2022/08/08/Paper-Reading-CLIP-ViL/5.png" class="">
+<p>使用原始<code>ResNet</code>特征和<code>CLI</code>P特征变体的<code>R2R</code>和<code>RxR</code>数据集的结果。<code>BT-Agent</code>是用反向翻译（<code>BT</code>）训练的代理。<code>SR</code>是成功率。<code>SPL</code>和<code>nDTW</code>分别是<code>R2R</code>和<code>RxR</code>的主要指标。最好的结果是粗体。</p>
+<h2 id="clip-vilp"><a class="markdownIt-Anchor" href="#clip-vilp"></a> CLIP-ViLp</h2>
+<img src="/2022/08/08/Paper-Reading-CLIP-ViL/6.png" class="">
+<p>三个视觉和语言任务的评估结果。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://tobyprime.top">Toby Prime</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tobyprime.top/2022/08/08/Paper-Reading-CLIP-ViL/">https://tobyprime.top/2022/08/08/Paper-Reading-CLIP-ViL/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tobyprime.top" target="_blank">Toby的小博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DeepLearning/">DeepLearning</a><a class="post-meta__tags" href="/tags/Note/">Note</a><a class="post-meta__tags" href="/tags/Paper/">Paper</a><a class="post-meta__tags" href="/tags/Multimodal/">Multimodal</a><a class="post-meta__tags" href="/tags/Transformer/">Transformer</a><a class="post-meta__tags" href="/tags/VLP/">VLP</a></div><div class="post_share"><div class="social-share" data-image="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/" target="_blank"><img class="post-qr-code-img" src="/"/></a><div class="post-qr-code-desc"></div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/08/Paper-Reading-ImageBERT/"><img class="prev-cover" src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Paper Reading: ImageBERT</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/07/ITerationT-3-0-0-vs-2-0-0/"><img class="next-cover" src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavXTK8jyo4TGNvY8Yjb4RbrfGBWntWxOc5M5Pb0Z79UF0/0" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ITerationT 3.0.0 vs 2.0.0</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/08/02/Paper-Reading-BLIP/" title="Paper Reading: BLIP"><img class="cover" src="/2022/08/02/Paper-Reading-BLIP/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-02</div><div class="title">Paper Reading: BLIP</div></div></a></div><div><a href="/2022/08/08/Paper-Reading-ImageBERT/" title="Paper Reading: ImageBERT"><img class="cover" src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-08</div><div class="title">Paper Reading: ImageBERT</div></div></a></div><div><a href="/2022/08/05/Paper-Reading-MDETR/" title="Paper Reading: MDETR"><img class="cover" src="/2022/08/05/Paper-Reading-MDETR/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-05</div><div class="title">Paper Reading: MDETR</div></div></a></div><div><a href="/2022/08/03/Paper-Reading-Pixel-BERT/" title="Paper Reading: Pixel-BERT"><img class="cover" src="/2022/08/03/Paper-Reading-Pixel-BERT/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-03</div><div class="title">Paper Reading: Pixel-BERT</div></div></a></div><div><a href="/2022/08/04/Paper-Reading-ViLBERT/" title="Paper Reading: ViLBERT"><img class="cover" src="/2022/08/04/Paper-Reading-ViLBERT/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-04</div><div class="title">Paper Reading: ViLBERT</div></div></a></div><div><a href="/2022/08/01/Paper-Reading-ViLT/" title="Paper Reading: ViLT"><img class="cover" src="/2022/08/01/Paper-Reading-ViLT/4.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-01</div><div class="title">Paper Reading: ViLT</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Toby Prime</div><div class="author-info__description">Toby的小博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/UrealToby"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/urealtoby" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:tobyprime0516@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本网站对佩洛西访台行为表示严厉谴责！本网站决定对佩洛西实施制裁！！永久禁止佩洛西访问本网站！！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#introduction"><span class="toc-number">1.</span> <span class="toc-text"> Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text"> 实验结果</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#clip-vil"><span class="toc-number">2.1.</span> <span class="toc-text"> CLIP-ViL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vqav20"><span class="toc-number">2.1.1.</span> <span class="toc-text"> VQAv2.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#image-captioning"><span class="toc-number">2.1.2.</span> <span class="toc-text"> Image Captioning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vision-and-language-navigatior2r"><span class="toc-number">2.1.3.</span> <span class="toc-text"> Vision-and-Language Navigatio（R2R）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#clip-vilp"><span class="toc-number">2.2.</span> <span class="toc-text"> CLIP-ViLp</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/08/08/Paper-Reading-ImageBERT/" title="Paper Reading: ImageBERT"><img src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Paper Reading: ImageBERT"/></a><div class="content"><a class="title" href="/2022/08/08/Paper-Reading-ImageBERT/" title="Paper Reading: ImageBERT">Paper Reading: ImageBERT</a><time datetime="2022-08-08T11:53:59.000Z" title="发表于 2022-08-08 19:53:59">2022-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/08/Paper-Reading-CLIP-ViL/" title="Paper Reading: CLIP-ViL"><img src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Paper Reading: CLIP-ViL"/></a><div class="content"><a class="title" href="/2022/08/08/Paper-Reading-CLIP-ViL/" title="Paper Reading: CLIP-ViL">Paper Reading: CLIP-ViL</a><time datetime="2022-08-08T11:49:01.000Z" title="发表于 2022-08-08 19:49:01">2022-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/07/ITerationT-3-0-0-vs-2-0-0/" title="ITerationT 3.0.0 vs 2.0.0"><img src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavXTK8jyo4TGNvY8Yjb4RbrfGBWntWxOc5M5Pb0Z79UF0/0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ITerationT 3.0.0 vs 2.0.0"/></a><div class="content"><a class="title" href="/2022/08/07/ITerationT-3-0-0-vs-2-0-0/" title="ITerationT 3.0.0 vs 2.0.0">ITerationT 3.0.0 vs 2.0.0</a><time datetime="2022-08-07T12:21:45.000Z" title="发表于 2022-08-07 20:21:45">2022-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/05/Paper-Reading-MDETR/" title="Paper Reading: MDETR"><img src="/2022/08/05/Paper-Reading-MDETR/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Paper Reading: MDETR"/></a><div class="content"><a class="title" href="/2022/08/05/Paper-Reading-MDETR/" title="Paper Reading: MDETR">Paper Reading: MDETR</a><time datetime="2022-08-05T12:43:57.000Z" title="发表于 2022-08-05 20:43:57">2022-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/" title="永久关闭WIN10升级WIN11提醒"><img src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="永久关闭WIN10升级WIN11提醒"/></a><div class="content"><a class="title" href="/2022/08/04/%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%ADWIN10%E5%8D%87%E7%BA%A7WIN11%E6%8F%90%E9%86%92/" title="永久关闭WIN10升级WIN11提醒">永久关闭WIN10升级WIN11提醒</a><time datetime="2022-08-04T13:06:42.000Z" title="发表于 2022-08-04 21:06:42">2022-08-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Toby Prime</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '12d0770b92b1fc66ab11',
+      clientSecret: '2490280d2ca1099aabb64fe76e4170aa6e6c4b2b',
+      repo: 'UrealToby.github.io',
+      owner: 'UrealToby',
+      admin: ['UrealToby'],
+      id: 'fa39c3963d19ab1a7b25f1a796e0cfbe',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

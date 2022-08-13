@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tobyprime.top/2022/08/13/Paper-Reading-VLP-%E7%BB%BC%E8%BF%B0/</loc>
+    
+    <lastmod>2022-08-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://tobyprime.top/2022/08/08/Paper-Reading-ImageBERT/</loc>
     
     <lastmod>2022-08-08</lastmod>
@@ -445,7 +454,7 @@
 
   <url>
     <loc>https://tobyprime.top/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -453,154 +462,161 @@
   
   <url>
     <loc>https://tobyprime.top/tags/Coding/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/Python/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/DeepLearning/</loc>
-    <lastmod>2022-08-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://tobyprime.top/tags/CV/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/Game/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/Minecraft/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://tobyprime.top/tags/CV/</loc>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/Note/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/Paper/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/Multimodal/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/Transformer/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/VLP/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/LaneDetection/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/NeuralRendering/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/%E6%B0%B4/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/KeyPoint/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/ImageGeneration/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/FaceRecognition/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/DistillingKnowledge/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/Video/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/ObjectTracking/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://tobyprime.top/tags/%E7%BB%BC%E8%BF%B0/</loc>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/VOS/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/tags/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -609,28 +625,28 @@
   
   <url>
     <loc>https://tobyprime.top/categories/code/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/categories/%E6%9D%82%E8%AE%B0/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tobyprime.top/categories/%E8%AE%A4%E7%9F%A5%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/</loc>
-    <lastmod>2022-08-08</lastmod>
+    <lastmod>2022-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

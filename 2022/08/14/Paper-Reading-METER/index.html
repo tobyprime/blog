@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Paper Reading: METER | Toby的小博客</title><meta name="keywords" content="DeepLearning,Note,Paper,Multimodal,Transformer,VLP"><meta name="author" content="Toby Prime"><meta name="copyright" content="Toby Prime"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="最近的工作表明，完全基于Transformer的模型比OD-RFs的模型更有效。但它们在下游任务上的表现往往会明显下降。 本文提出METER，一个多模态的端到端Transformer框架。 沿着多个维度剖析了模型设计：视觉编码器、文本编码器、多模态融合模块、架构设计，以及预训练目标。  介绍 视觉Transformer（ViTs）在视觉特征提取方面显示出巨大的潜力。因此，本文使用ViTs作为图像编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paper Reading: METER">
+<meta property="og:url" content="https://tobyprime.top/2022/08/14/Paper-Reading-METER/index.html">
+<meta property="og:site_name" content="Toby的小博客">
+<meta property="og:description" content="最近的工作表明，完全基于Transformer的模型比OD-RFs的模型更有效。但它们在下游任务上的表现往往会明显下降。 本文提出METER，一个多模态的端到端Transformer框架。 沿着多个维度剖析了模型设计：视觉编码器、文本编码器、多模态融合模块、架构设计，以及预训练目标。  介绍 视觉Transformer（ViTs）在视觉特征提取方面显示出巨大的潜力。因此，本文使用ViTs作为图像编">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tobyprime.top/2022/08/14/Paper-Reading-METER/8.png">
+<meta property="article:published_time" content="2022-08-14T08:43:22.000Z">
+<meta property="article:modified_time" content="2022-08-14T08:51:26.791Z">
+<meta property="article:author" content="Toby Prime">
+<meta property="article:tag" content="DeepLearning">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="Paper">
+<meta property="article:tag" content="Multimodal">
+<meta property="article:tag" content="Transformer">
+<meta property="article:tag" content="VLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tobyprime.top/2022/08/14/Paper-Reading-METER/8.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://tobyprime.top/2022/08/14/Paper-Reading-METER/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Paper Reading: METER',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-14 16:51:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/websites/"><i class="fa-fw fas fa-map"></i><span> 常用网站</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 奇奇怪怪</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/pixiv/"><i class="fa-fw fas fa-image"></i><span> 随机图片</span></a></li><li><a class="site-page child" href="/air-conditioning/"><i class="fa-fw fa fa-feed"></i><span> 空调房</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2022/08/14/Paper-Reading-METER/8.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Toby的小博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/websites/"><i class="fa-fw fas fa-map"></i><span> 常用网站</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 奇奇怪怪</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/pixiv/"><i class="fa-fw fas fa-image"></i><span> 随机图片</span></a></li><li><a class="site-page child" href="/air-conditioning/"><i class="fa-fw fa fa-feed"></i><span> 空调房</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Paper Reading: METER</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T08:43:22.000Z" title="发表于 2022-08-14 16:43:22">2022-08-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-14T08:51:26.791Z" title="更新于 2022-08-14 16:51:26">2022-08-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Paper Reading: METER"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>最近的工作表明，完全基于<code>Transformer</code>的模型比<code>OD-RFs</code>的模型更有效。但它们在下游任务上的表现往往会明显下降。</p>
+<p>本文提出<code>METER</code>，一个多模态的端到端<code>Transformer</code>框架。</p>
+<p>沿着多个维度剖析了模型设计：视觉编码器、文本编码器、多模态融合模块、架构设计，以及预训练目标。</p>
+<h1 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h1>
+<p>视觉<code>Transformer</code>（<code>ViTs</code>）在视觉特征提取方面显示出巨大的潜力。因此，本文使用<code>ViTs</code>作为图像编码器训练一个完全基于<code>Transformer</code>的<code>VLP</code>模型。</p>
+<p>最近试图采用视觉<code>Transformer</code>仍然弱于最先进的<code>OD-RFs</code>模型。为了缩小性能差距，我们提出了<code>METER</code>，一个多模态的端到端<code>Transformer</code>框架，通过它我们彻底研究了如何以端到端方式设计和预训练一个完全基于<code>Transformer</code>的<code>VLP</code>模型。</p>
+<p>我们沿着多个维度对模型设计进行剖析</p>
+<ul>
+<li><strong>视觉编码器</strong>，如<code>CLIP-ViT</code>、<code>Swin Transformer</code></li>
+<li><strong>文本编码器</strong>，如<code>RoBERTa</code>、<code>DeBERTa</code></li>
+<li><strong>多模态融合模块</strong>，如合并注意力（<code>merged attention</code>）、共同注意力（<code>co-attention</code>）</li>
+<li><strong>架构设计</strong>，仅编码器与编码器-解码器</li>
+<li><strong>预训练目标</strong>，例如遮蔽图像建模。</li>
+</ul>
+<p>我们通过在四个常用的图像标题数据集上对<code>METER</code>下的模型预训练来进行研究。在视觉问题回答、视觉推理、图像文本检索和视觉关联任务中对它们进行了测试，总结如下：</p>
+<ul>
+<li><code>ViT</code>在<code>VLP</code>中比语言<code>Transformer</code>起着更重要的作用，<code>Transformer</code>在单模态任务上的表现并不能说明其在<code>VL</code>任务上的表现。</li>
+<li>交叉注意的加入有利于多模态融合，这比单独使用自我注意能带来更好的下游性能。</li>
+<li>在<code>VQA</code>和<code>0-shot</code>图像-文本检索任务中，仅编码器的<code>VLP</code>模型比编码器-解码器模型表现得更好。</li>
+<li>在我们的设置中，增加遮蔽图像建模损失不会改善下游任务的表现。</li>
+</ul>
+<h1 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h1>
+<img src="/2022/08/14/Paper-Reading-METER/1.png" class="">
+<p>给定一个图文对，首先通过一个文本编码器与一个视觉编码器提取文本特征 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>l</mtext><mo>=</mo><mo stretchy="false">⟨</mo><msub><mi>l</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>l</mi><mi>N</mi></msub><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\text{l}=\langle l_1,...,l_N \rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">l</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.01968em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.01968em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> 和视觉特征 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>v</mtext><mo>=</mo><mo stretchy="false">⟨</mo><msub><mi>v</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>v</mi><mi>M</mi></msub><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\text{v}=\langle v_1,...,v_M \rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord">v</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> ，然后将文本和视觉特征馈送到多模态融合模块以产生跨模态表示，在生成最终输出之前选择性地将其馈送到一个解码器。</p>
+<h2 id="模型架构"><a class="markdownIt-Anchor" href="#模型架构"></a> 模型架构</h2>
+<h3 id="视觉编码器"><a class="markdownIt-Anchor" href="#视觉编码器"></a> 视觉编码器</h3>
+<p>首先将图像分割成补丁，然后将补丁馈送到转换器模型中。最近基于<code>ViT</code>的<code>VLP</code>模型与最先进的基于区域特征的模型（如<code>VinVL</code>）相比，效果仍然较差。本文比较了原始<code>ViT</code>、<code>DeiT</code>、<code>Distilled-DeiT</code>、<code>CaiT</code>、<code>VOLO</code>、<code>BEiT</code>，<code>Swin Transformer</code>和<code>CLIP-ViT</code>。</p>
+<h3 id="文本编码器"><a class="markdownIt-Anchor" href="#文本编码器"></a> 文本编码器</h3>
+<p>首先将输入句子分割成子词序列，然后在句子的开头和结尾插入两个特殊标记以生成输入文本序列。获得文本嵌入后，现有工作有两种处理方式：</p>
+<ul>
+<li>直接馈送到多模态融合模块，融合模块通常使用<code>BERT</code>进行初始化，单个<code>BERT</code>融合模块需要同时编码文本和进行多模态融合。</li>
+<li>在融合之前馈送到几个文本特定的层，也是本文选择的方法，分解为两个模块，将特征馈送到融合模块之前经过文本编码器。</li>
+</ul>
+<p>在这项工作中，我们研究了使用<code>BERT</code>，<code>RoBERTa</code>，<code>ELECTRA</code>，<code>ALBERT</code>和<code>DeBERTa</code>进行文本编码。此外，还尝试仅使用一个简单的词嵌入查找层，该层使用<code>BERT</code>嵌入层初始化。</p>
+<h3 id="模态融合"><a class="markdownIt-Anchor" href="#模态融合"></a> 模态融合</h3>
+<img src="/2022/08/14/Paper-Reading-METER/2.png" class="">
+<p>研究了两种类型的融合模块：</p>
+<ul>
+<li>合并注意力（<code>merged attention</code>），文本和视觉特征简单地拼接在一起，馈送到单个<code>Transformer</code>块中</li>
+<li>共同注意力（<code>co-attention</code>），文本和视觉特征独立地馈送到不同的<code>Transformer</code>块中，使用交叉注意等来实现交叉模态交互。</li>
+</ul>
+<p>合并注意力和共同注意模型可以实现相仿的性能。然而，合并注意力效率更高，因为两种模态使用同一个<code>Transformer</code>模块。</p>
+<h3 id="仅编码器与编码器-解码1器"><a class="markdownIt-Anchor" href="#仅编码器与编码器-解码1器"></a> 仅编码器与编码器-解码1器</h3>
+<img src="/2022/08/14/Paper-Reading-METER/3.png" class="">
+<ul>
+<li>仅编码器架构跨模态表示直接馈送到输出层以生成最终输出。</li>
+<li>编码器-解码器架构跨模态表示首先馈送到解码器，然后馈送到输出层。解码器同时关注编码器表示和先前生成的<code>token</code>，自回归的生成输出。</li>
+</ul>
+<h2 id="预训练目标"><a class="markdownIt-Anchor" href="#预训练目标"></a> 预训练目标</h2>
+<h3 id="masked-language-modeling"><a class="markdownIt-Anchor" href="#masked-language-modeling"></a> Masked Language Modeling.</h3>
+<h3 id="image-text-matching"><a class="markdownIt-Anchor" href="#image-text-matching"></a> Image-Text Matching.</h3>
+<h3 id="masked-image-modeling"><a class="markdownIt-Anchor" href="#masked-image-modeling"></a> Masked Image Modeling.</h3>
+<p>给定一些列视觉特征 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>v</mtext><mo>=</mo><mo stretchy="false">⟨</mo><msub><mi>v</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>v</mi><mi>M</mi></msub><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\text{v}=\langle v_1,...,v_M \rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord">v</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> 随机屏蔽一些视觉特征，模型在给定其余视觉特征和未掩码标记 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>t</mtext></mrow><annotation encoding="application/x-tex">\text{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord text"><span class="mord">t</span></span></span></span></span> 的情况下重建视觉特征 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mtext>o</mtext><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">\text{o}_v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">o</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，最小化<code>MSE</code>损失。</p>
+<p>为了研究<code>MIM</code>对<code>VLP</code>的有效性，我们将图像遮罩重建视为一项<code>patch</code>遮罩分类任务，并提出了两种实现该想法的方法。</p>
+<h4 id="masked-patch-classification-with-in-batch-negatives"><a class="markdownIt-Anchor" href="#masked-patch-classification-with-in-batch-negatives"></a> Masked Patch Classification with In-batch Negatives</h4>
+<p>模仿MLM，提出让模型通过使用动态构建的词汇表构建<code>batch</code>内负样本来重建输入<code>patch</code>。</p>
+<p>在每个训练步骤对一个<code>batch</code>中所有图文对进行采样，将<code>batch</code>中所有图片中的<code>patch</code>视为候选<code>patch</code>，屏蔽<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>15</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">15\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">%</span></span></span></span>的输入<code>patch</code>，模型需要从候选集中选择正确的<code>patch</code>。</p>
+<h4 id="masked-patch-classification-with-discrete-code"><a class="markdownIt-Anchor" href="#masked-patch-classification-with-discrete-code"></a> Masked Patch Classification with Discrete Code.</h4>
+<p>获取输入<code>patch</code>的离散表示，训练模型重建离散的<code>token</code>。使用<code>VQ-VAE</code>模型将每个图像<code>token</code>化为一系列离散<code>token</code>。调整每个图片大小使<code>patch</code>数量等于<code>token</code>数量。然后随机屏蔽 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>15</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">15\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">%</span></span></span></span> 的<code>patch</code>，让模型预测离散的<code>token</code>。</p>
+<h2 id="meter默认设置"><a class="markdownIt-Anchor" href="#meter默认设置"></a> METER默认设置</h2>
+<ul>
+<li><strong>预训练目标</strong>，除非另行说明，仅使用语言屏蔽建模（<code>MLM</code>）和图像文本匹配（ITM）。</li>
+<li><strong>预训练数据集</strong>，在四个常用数据集上预训练模型，COCO、 Conceptual Captions、 SBU Captions 和 Visual Genome。</li>
+<li><strong>下游任务</strong>，主要关注VQAv2，也在Flickr30k进行<code>0-shot</code>测试。</li>
+</ul>
+<h1 id="实验"><a class="markdownIt-Anchor" href="#实验"></a> 实验</h1>
+<h2 id="编码器"><a class="markdownIt-Anchor" href="#编码器"></a> 编码器</h2>
+<img src="/2022/08/14/Paper-Reading-METER/4.png" class="">
+<h2 id="图像分辨率"><a class="markdownIt-Anchor" href="#图像分辨率"></a> 图像分辨率</h2>
+<img src="/2022/08/14/Paper-Reading-METER/5.png" class="">
+<p>在微调过程中提高图像分辨率可大大提高 VQAv2上的性能</p>
+<h2 id="共同注意力与合并注意力"><a class="markdownIt-Anchor" href="#共同注意力与合并注意力"></a> 共同注意力与合并注意力</h2>
+<img src="/2022/08/14/Paper-Reading-METER/6.png" class="">
+<p>共同注意力的表现优于合并注意力，添加解码器对于我们的判别性<code>VL</code>任务没有帮助</p>
+<h2 id="预训练目标-2"><a class="markdownIt-Anchor" href="#预训练目标-2"></a> 预训练目标</h2>
+<img src="/2022/08/14/Paper-Reading-METER/7.png" class="">
+<p>语言遮罩建模 （<code>MLM</code>） 和图像文本匹配 （<code>ITM</code>）可以提高模型性能，但图像遮罩建模（<code>MIM</code>）目标都会导致下游任务的性能下降。</p>
+<h2 id="性能"><a class="markdownIt-Anchor" href="#性能"></a> 性能</h2>
+<img src="/2022/08/14/Paper-Reading-METER/8.png" class="">
+<p>与预训练有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&lt;</mo><mn>10</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">&lt;10M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span> 图像的模型在视觉问答、视觉推理、视觉蕴涵以及<code>0-shot</code>图像检索和文本检索任务方面的比较。</p>
+<img src="/2022/08/14/Paper-Reading-METER/9.png" class="">
+<p>与Flickr30k上使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&lt;</mo><mn>10</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">&lt;10M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span> 图像进行预训练的模型以及微调设置中的COCO图像检索和文本检索任务的比较。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://tobyprime.top">Toby Prime</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tobyprime.top/2022/08/14/Paper-Reading-METER/">https://tobyprime.top/2022/08/14/Paper-Reading-METER/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tobyprime.top" target="_blank">Toby的小博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DeepLearning/">DeepLearning</a><a class="post-meta__tags" href="/tags/Note/">Note</a><a class="post-meta__tags" href="/tags/Paper/">Paper</a><a class="post-meta__tags" href="/tags/Multimodal/">Multimodal</a><a class="post-meta__tags" href="/tags/Transformer/">Transformer</a><a class="post-meta__tags" href="/tags/VLP/">VLP</a></div><div class="post_share"><div class="social-share" data-image="/2022/08/14/Paper-Reading-METER/8.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/" target="_blank"><img class="post-qr-code-img" src="/"/></a><div class="post-qr-code-desc"></div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/08/13/Paper-Reading-VLP-%E7%BB%BC%E8%BF%B0/"><img class="next-cover" src="/2022/08/13/Paper-Reading-VLP-%E7%BB%BC%E8%BF%B0/6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Paper Reading: VLP 综述</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/08/02/Paper-Reading-BLIP/" title="Paper Reading: BLIP"><img class="cover" src="/2022/08/02/Paper-Reading-BLIP/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-02</div><div class="title">Paper Reading: BLIP</div></div></a></div><div><a href="/2022/08/08/Paper-Reading-CLIP-ViL/" title="Paper Reading: CLIP-ViL"><img class="cover" src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-08</div><div class="title">Paper Reading: CLIP-ViL</div></div></a></div><div><a href="/2022/08/08/Paper-Reading-ImageBERT/" title="Paper Reading: ImageBERT"><img class="cover" src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-08</div><div class="title">Paper Reading: ImageBERT</div></div></a></div><div><a href="/2022/08/05/Paper-Reading-MDETR/" title="Paper Reading: MDETR"><img class="cover" src="/2022/08/05/Paper-Reading-MDETR/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-05</div><div class="title">Paper Reading: MDETR</div></div></a></div><div><a href="/2022/08/03/Paper-Reading-Pixel-BERT/" title="Paper Reading: Pixel-BERT"><img class="cover" src="/2022/08/03/Paper-Reading-Pixel-BERT/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-03</div><div class="title">Paper Reading: Pixel-BERT</div></div></a></div><div><a href="/2022/08/04/Paper-Reading-ViLBERT/" title="Paper Reading: ViLBERT"><img class="cover" src="/2022/08/04/Paper-Reading-ViLBERT/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-04</div><div class="title">Paper Reading: ViLBERT</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Toby Prime</div><div class="author-info__description">Toby的小博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/UrealToby"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/urealtoby" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:tobyprime0516@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本网站对佩洛西访台行为表示严厉谴责！本网站决定对佩洛西实施制裁！！永久禁止佩洛西访问本网站！！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text"> 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">2.1.</span> <span class="toc-text"> 模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 视觉编码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">2.1.2.</span> <span class="toc-text"> 文本编码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88"><span class="toc-number">2.1.3.</span> <span class="toc-text"> 模态融合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%85%E7%BC%96%E7%A0%81%E5%99%A8%E4%B8%8E%E7%BC%96%E7%A0%81%E5%99%A8-%E8%A7%A3%E7%A0%811%E5%99%A8"><span class="toc-number">2.1.4.</span> <span class="toc-text"> 仅编码器与编码器-解码1器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E7%9B%AE%E6%A0%87"><span class="toc-number">2.2.</span> <span class="toc-text"> 预训练目标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#masked-language-modeling"><span class="toc-number">2.2.1.</span> <span class="toc-text"> Masked Language Modeling.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#image-text-matching"><span class="toc-number">2.2.2.</span> <span class="toc-text"> Image-Text Matching.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#masked-image-modeling"><span class="toc-number">2.2.3.</span> <span class="toc-text"> Masked Image Modeling.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#masked-patch-classification-with-in-batch-negatives"><span class="toc-number">2.2.3.1.</span> <span class="toc-text"> Masked Patch Classification with In-batch Negatives</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#masked-patch-classification-with-discrete-code"><span class="toc-number">2.2.3.2.</span> <span class="toc-text"> Masked Patch Classification with Discrete Code.</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#meter%E9%BB%98%E8%AE%A4%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text"> METER默认设置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text"> 实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text"> 编码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%88%86%E8%BE%A8%E7%8E%87"><span class="toc-number">3.2.</span> <span class="toc-text"> 图像分辨率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B1%E5%90%8C%E6%B3%A8%E6%84%8F%E5%8A%9B%E4%B8%8E%E5%90%88%E5%B9%B6%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="toc-number">3.3.</span> <span class="toc-text"> 共同注意力与合并注意力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E7%9B%AE%E6%A0%87-2"><span class="toc-number">3.4.</span> <span class="toc-text"> 预训练目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD"><span class="toc-number">3.5.</span> <span class="toc-text"> 性能</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/08/14/Paper-Reading-METER/" title="Paper Reading: METER"><img src="/2022/08/14/Paper-Reading-METER/8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Paper Reading: METER"/></a><div class="content"><a class="title" href="/2022/08/14/Paper-Reading-METER/" title="Paper Reading: METER">Paper Reading: METER</a><time datetime="2022-08-14T08:43:22.000Z" title="发表于 2022-08-14 16:43:22">2022-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/13/Paper-Reading-VLP-%E7%BB%BC%E8%BF%B0/" title="Paper Reading: VLP 综述"><img src="/2022/08/13/Paper-Reading-VLP-%E7%BB%BC%E8%BF%B0/6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Paper Reading: VLP 综述"/></a><div class="content"><a class="title" href="/2022/08/13/Paper-Reading-VLP-%E7%BB%BC%E8%BF%B0/" title="Paper Reading: VLP 综述">Paper Reading: VLP 综述</a><time datetime="2022-08-13T14:41:31.000Z" title="发表于 2022-08-13 22:41:31">2022-08-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/08/Paper-Reading-ImageBERT/" title="Paper Reading: ImageBERT"><img src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Paper Reading: ImageBERT"/></a><div class="content"><a class="title" href="/2022/08/08/Paper-Reading-ImageBERT/" title="Paper Reading: ImageBERT">Paper Reading: ImageBERT</a><time datetime="2022-08-08T11:53:59.000Z" title="发表于 2022-08-08 19:53:59">2022-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/08/Paper-Reading-CLIP-ViL/" title="Paper Reading: CLIP-ViL"><img src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavwSW0dZAfjm6E59eBD5RHewMbb4126Dg7S2grcKnIykA/0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Paper Reading: CLIP-ViL"/></a><div class="content"><a class="title" href="/2022/08/08/Paper-Reading-CLIP-ViL/" title="Paper Reading: CLIP-ViL">Paper Reading: CLIP-ViL</a><time datetime="2022-08-08T11:49:01.000Z" title="发表于 2022-08-08 19:49:01">2022-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/07/ITerationT-3-0-0-vs-2-0-0/" title="ITerationT 3.0.0 vs 2.0.0"><img src="https://p.qlogo.cn/qqmail_head/5XzhBVQa2LHyt1bgusWW92BKC2lktyavXTK8jyo4TGNvY8Yjb4RbrfGBWntWxOc5M5Pb0Z79UF0/0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ITerationT 3.0.0 vs 2.0.0"/></a><div class="content"><a class="title" href="/2022/08/07/ITerationT-3-0-0-vs-2-0-0/" title="ITerationT 3.0.0 vs 2.0.0">ITerationT 3.0.0 vs 2.0.0</a><time datetime="2022-08-07T12:21:45.000Z" title="发表于 2022-08-07 20:21:45">2022-08-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Toby Prime</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '12d0770b92b1fc66ab11',
+      clientSecret: '2490280d2ca1099aabb64fe76e4170aa6e6c4b2b',
+      repo: 'UrealToby.github.io',
+      owner: 'UrealToby',
+      admin: ['UrealToby'],
+      id: 'bd1c8cc4a7f2c9df794c0158a861bf7b',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

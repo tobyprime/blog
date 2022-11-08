@@ -5,7 +5,7 @@
 // @description  try to take over the world!
 // @author       You
 // @require      https://lib.baomitu.com/jquery/3.6.0/jquery.js
-// @match        https://tobyprime.top/lolicon-gui/
+// @match        https://urealtoby.github.io/blog-g/lolicon-gui/
 // @match        http://192.168.65.128:4000/lolicon-gui/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=lolicon.app
 // @grant        GM_xmlhttpRequest
